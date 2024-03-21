@@ -1,2 +1,1 @@
-# Tubes-Grafkom-1
-Backup repository untuk tubes 1 Grafkom
+# tugas-besar-grafkom-1-grafkonn
