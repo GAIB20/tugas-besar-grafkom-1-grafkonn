@@ -1,9 +1,9 @@
 // init index.ts
-import { fragmentShaderSource } from "./shader/fragmentShaderSource";
-import { vertexShaderSource } from "./shader/vertexShaderSource";
-import { createProgram } from "./utils/program";
-import { resizeCanvas } from "./utils/resize-canvas";
-import { createAllShader } from "./utils/shader";
+import { fragmentShaderSource } from "./fragmentShaderSource";
+import { vertexShaderSource } from "./vertexShaderSource";
+import { createProgram } from "../utils/program";
+import { resizeCanvas } from "../utils/resize-canvas";
+import { createAllShader } from "../utils/shader";
 
 function main() {
   const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
