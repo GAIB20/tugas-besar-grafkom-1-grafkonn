@@ -1,12 +1,8 @@
-function resizeCanvas(
-    canvas: HTMLCanvasElement
-) {
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-    }
+export function resizeCanvas(canvas: HTMLCanvasElement) {
+  const screenWidth = canvas.clientWidth;
+  const screenHeight = canvas.clientHeight;
+  if (canvas.width !== screenWidth || canvas.height !== screenHeight) {
+    canvas.width = screenWidth;
+    canvas.height = screenHeight;
+  }
 }
-
-export default resizeCanvas;
