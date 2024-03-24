@@ -11,7 +11,6 @@ export function setupSlider(
 
   slider.max = max.toString();
   slider.min = "0";
-  slider.value = "0";
 
   slider.addEventListener("input", handleSliderChange);
 }

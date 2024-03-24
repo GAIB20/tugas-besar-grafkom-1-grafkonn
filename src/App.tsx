@@ -7,13 +7,23 @@ function App() {
     createWebGL();
   }, []);
   return (
-   <div className="m-4">
-    Translate
-      <div>
-        x <input type="range" id="slider-translation-x" min="0" max="100" />
-      </div>
-      <div>
-        y <input type="range" id="slider-translation-y" min="0" max="100" />
+    <div className="m-4">
+      <div className="flex flex-row">
+        <div className="p-2">
+          <p>Translate</p>
+          <div>
+            x <input type="range" id="slider-translation-x" min="0" max="100" defaultValue="0" />
+          </div>
+          <div>
+            y <input type="range" id="slider-translation-y" min="0" max="100" defaultValue="0"/>
+          </div>
+        </div>
+        <div className="p-2">
+          <p>Rotation</p>
+          <div>
+            x <input type="range" id="slider-translation-x" min="0" max="360" defaultValue="0" />
+          </div>
+        </div>
       </div>
       <canvas
         id="canvas"
