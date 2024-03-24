@@ -84,17 +84,17 @@ export function createWebGL() {
     gl.enableVertexAttribArray(positionAttribute);
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     console.log(positionsArr[selectedShape]);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array(positionsArr[selectedShape]),
-      gl.STATIC_DRAW
-    );
-    gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
 
     // set the variable
     gl.uniform2f(resolutionUniform, gl.canvas.width, gl.canvas.height);
 
     for (let i = 0; i < positionsArr.length; i++) {
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(positionsArr[i]),
+        gl.STATIC_DRAW
+      );
+      gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
       gl.uniform4fv(colorUniform, color);
       const translate = [
         translationArr[2 * i],

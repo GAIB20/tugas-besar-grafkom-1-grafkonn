@@ -7,7 +7,8 @@ function App() {
     createWebGL();
   }, []);
   return (
-    <>
+   <div className="m-4">
+    Translate
       <div>
         x <input type="range" id="slider-translation-x" min="0" max="100" />
       </div>
@@ -18,7 +19,7 @@ function App() {
         id="canvas"
         style={{ width: "100%", height: "100%", border: "1px solid black" }}
       />
-    </>
+    </div>
   );
 }
 
