@@ -24,9 +24,13 @@ export function onCreateHandleMouseDown(
       shape.onCreate(mainLocationBuffer, mouseX, mouseY);
       shapeBuffer.push(shape);
     }
-    translateBuffer.push(0)
-    translateBuffer.push(0)
-    rotationBuffer.push(0)
-    console.log(mainLocationBuffer)
+    // add  0, 0 for translate
+    translateBuffer.push(0);
+    translateBuffer.push(0);
+
+    // add  0, 1 for rotation (it means 0 degrees)
+    rotationBuffer.push(0);
+    rotationBuffer.push(1);
+    console.log(mainLocationBuffer);
   }
 }

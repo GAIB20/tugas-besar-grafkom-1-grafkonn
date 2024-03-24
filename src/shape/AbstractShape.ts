@@ -10,11 +10,8 @@ export abstract class AbstractShape {
   public indexInTranslateBuffer: number;
 
   // for rotation purposes
-  public rotation: number;
+  public rotation: number[];
   public indexInRotationBuffer: number;
-
-  // check if it's in the buffer
-  public isInBuffer: boolean;
 
   constructor(id: number) {
     this.id = id;
@@ -25,16 +22,13 @@ export abstract class AbstractShape {
     this.translationArr = [0, 0];
     this.indexInTranslateBuffer = id * 2;
 
-    this.rotation = 0;
-    this.indexInRotationBuffer = id;
-
-    this.isInBuffer = false;
+    this.rotation = [0, 1];
+    this.indexInRotationBuffer = id * 2;
   }
 
   // add this object to the buffer
   addLocToBuffer(MainLocationBuffer: number[]) {
     this.indexInLocBuffer = MainLocationBuffer.length;
-    this.isInBuffer = true;
 
     for (const element of this.locationArr) {
       MainLocationBuffer.push(element);

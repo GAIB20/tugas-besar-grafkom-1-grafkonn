@@ -1,5 +1,6 @@
 // init index.ts
 import { onCreateHandleMouseDown } from "./mandatory/create";
+import { handleRotate } from "./mandatory/rotate";
 import { handleTranslate } from "./mandatory/translate";
 import { fragmentShaderSource } from "./shader/fragmentShaderSource";
 import { vertexShaderSource } from "./shader/vertexShaderSource";
@@ -35,6 +36,7 @@ export function createWebGL() {
   const resolutionUniform = gl.getUniformLocation(program, "u_resolution");
   const colorUniform = gl.getUniformLocation(program, "u_color");
   const translationUniform = gl.getUniformLocation(program, "u_translation");
+  const rotationUniform = gl.getUniformLocation(program, "u_rotation");
 
   // create position buffer and bind it
   const positionBuffer = gl.createBuffer();
@@ -43,8 +45,8 @@ export function createWebGL() {
   const shapesArr: AbstractShape[] = [];
   const positionsArr: number[][] = [];
   const translationArr: number[] = [];
-  const rotation: number[] = [];
-  const selectedShape: number = 0;
+  const rotationArr: number[] = [];
+  const selectedShapeIdx: number = 0;
 
   const color = [Math.random(), Math.random(), Math.random(), 1];
 
@@ -59,19 +61,24 @@ export function createWebGL() {
       canvas,
       shapesArr,
       translationArr,
-      rotation,
+      rotationArr,
       mouseDownType,
       createType
     );
     drawScene();
   });
 
+  // setup event listeners
   setupSlider("#slider-translation-x", gl.canvas.width, (e: Event) => {
-    handleTranslate(e, selectedShape, translationArr, shapesArr[selectedShape], "x");
+    handleTranslate(e, selectedShapeIdx, translationArr, shapesArr[selectedShapeIdx], "x");
     drawScene();
   });
   setupSlider("#slider-translation-y", gl.canvas.height, (e: Event) => {
-    handleTranslate(e, selectedShape, translationArr, shapesArr[selectedShape], "y");
+    handleTranslate(e, selectedShapeIdx, translationArr, shapesArr[selectedShapeIdx], "y");
+    drawScene();
+  });
+  setupSlider("#slider-rotation", 360, (e: Event) => {
+    handleRotate(e, selectedShapeIdx, rotationArr, shapesArr[selectedShapeIdx]);
     drawScene();
   });
 
@@ -83,24 +90,36 @@ export function createWebGL() {
     gl.useProgram(program);
     gl.enableVertexAttribArray(positionAttribute);
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    console.log(positionsArr[selectedShape]);
+    console.log(positionsArr[selectedShapeIdx]);
 
     // set the variable
     gl.uniform2f(resolutionUniform, gl.canvas.width, gl.canvas.height);
 
     for (let i = 0; i < positionsArr.length; i++) {
+      // set the buffer data
       gl.bufferData(
         gl.ARRAY_BUFFER,
         new Float32Array(positionsArr[i]),
         gl.STATIC_DRAW
       );
       gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
+      
+      // set the color
       gl.uniform4fv(colorUniform, color);
+
+      // set the translate and rotate
       const translate = [
         translationArr[2 * i],
         translationArr[2 * i + 1],
       ];
+      const rotate = [
+        rotationArr[2 * i],
+        rotationArr[2 * i + 1],
+      ];
+      gl.uniform2fv(rotationUniform, rotate);
       gl.uniform2fv(translationUniform, translate);
+      
+      // draw the arrays
       gl.drawArrays(gl.TRIANGLES, 0, positionsArr[i].length);
     }
     

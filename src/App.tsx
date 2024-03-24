@@ -21,7 +21,7 @@ function App() {
         <div className="p-2">
           <p>Rotation</p>
           <div>
-            x <input type="range" id="slider-translation-x" min="0" max="360" defaultValue="0" />
+            0 <input type="range" id="slider-rotation" min="0" max="360" defaultValue="0" /> 360
           </div>
         </div>
       </div>
