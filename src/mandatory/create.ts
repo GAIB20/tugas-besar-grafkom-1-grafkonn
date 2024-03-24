@@ -8,8 +8,8 @@ export function onCreateHandleMouseDown(
   shapeBuffer: AbstractShape[],
   translateBuffer: number[],
   rotationBuffer: number[],
-  mouseDownType: "create",
-  creationType: "square" | "line"
+  mouseDownType: "create" | "move" | string,
+  creationType: "square" | "line" | string
 ) {
   if (mouseDownType === "create") {
     const canvasRect = canvas.getBoundingClientRect();

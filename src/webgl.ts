@@ -1,5 +1,10 @@
 // init index.ts
 import { onCreateHandleMouseDown } from "./mandatory/create";
+import {
+  onMoveVertexHandleMouseDown,
+  onMoveVertexHandleMouseMove,
+  onMoveVertexHandleMouseUp,
+} from "./mandatory/moveVertex";
 import { handleRotate } from "./mandatory/rotate";
 import { handleTranslate } from "./mandatory/translate";
 import { fragmentShaderSource } from "./shader/fragmentShaderSource";
@@ -19,6 +24,9 @@ export function createWebGL() {
   if (!gl) {
     return;
   }
+  const selection = document.getElementById(
+    "selectOption"
+  ) as HTMLSelectElement;
 
   resizeCanvas(gl.canvas as HTMLCanvasElement);
 
@@ -46,13 +54,21 @@ export function createWebGL() {
   const positionsArr: number[][] = [];
   const translationArr: number[] = [];
   const rotationArr: number[] = [];
+  const draggedVertexIdxArr: number[] = [];
   const selectedShapeIdx: number = 0;
 
   const color = [Math.random(), Math.random(), Math.random(), 1];
 
-  // add event listeners
-  const mouseDownType = "create"; // TODO: modify when UI ready
+  // event listeners to create shape
+  let mouseDownType = "create"; // TODO: modify when UI ready
   const createType = "square"; // TODO: modify when UI ready
+
+  // event listeners to change options
+  selection.addEventListener("change", (e: Event) => {
+    const selection = e.target as HTMLSelectElement;
+    mouseDownType = selection.value;
+  });
+
   canvas.addEventListener("mousedown", (e: MouseEvent) => {
     positionsArr.push([]);
     onCreateHandleMouseDown(
@@ -68,19 +84,60 @@ export function createWebGL() {
     drawScene();
   });
 
-  // setup event listeners
+  // event listeners for translation
   setupSlider("#slider-translation-x", gl.canvas.width, (e: Event) => {
-    handleTranslate(e, selectedShapeIdx, translationArr, shapesArr[selectedShapeIdx], "x");
+    handleTranslate(
+      e,
+      selectedShapeIdx,
+      translationArr,
+      shapesArr[selectedShapeIdx],
+      "x"
+    );
     drawScene();
   });
   setupSlider("#slider-translation-y", gl.canvas.height, (e: Event) => {
-    handleTranslate(e, selectedShapeIdx, translationArr, shapesArr[selectedShapeIdx], "y");
+    handleTranslate(
+      e,
+      selectedShapeIdx,
+      translationArr,
+      shapesArr[selectedShapeIdx],
+      "y"
+    );
     drawScene();
   });
+
+  // event listeners for rotation
   setupSlider("#slider-rotation", 360, (e: Event) => {
     handleRotate(e, selectedShapeIdx, rotationArr, shapesArr[selectedShapeIdx]);
     drawScene();
   });
+
+  // event listeners for moving vertex
+  canvas.addEventListener("mousedown", (e: MouseEvent) =>
+    onMoveVertexHandleMouseDown(
+      e,
+      canvas,
+      selectedShapeIdx,
+      shapesArr[selectedShapeIdx],
+      draggedVertexIdxArr,
+      mouseDownType
+    )
+  );
+  canvas.addEventListener("mousemove", (e: MouseEvent) => {
+    if (draggedVertexIdxArr.length > 0) {
+      onMoveVertexHandleMouseMove(
+        e,
+        shapesArr[selectedShapeIdx],
+        positionsArr[selectedShapeIdx],
+        draggedVertexIdxArr,
+        canvas
+      );
+      drawScene();
+    }
+  });
+  canvas.addEventListener("mouseup", () =>
+    onMoveVertexHandleMouseUp(draggedVertexIdxArr)
+  );
 
   const drawScene = () => {
     // draw scene
@@ -103,25 +160,18 @@ export function createWebGL() {
         gl.STATIC_DRAW
       );
       gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
-      
+
       // set the color
       gl.uniform4fv(colorUniform, color);
 
       // set the translate and rotate
-      const translate = [
-        translationArr[2 * i],
-        translationArr[2 * i + 1],
-      ];
-      const rotate = [
-        rotationArr[2 * i],
-        rotationArr[2 * i + 1],
-      ];
+      const translate = [translationArr[2 * i], translationArr[2 * i + 1]];
+      const rotate = [rotationArr[2 * i], rotationArr[2 * i + 1]];
       gl.uniform2fv(rotationUniform, rotate);
       gl.uniform2fv(translationUniform, translate);
-      
+
       // draw the arrays
       gl.drawArrays(gl.TRIANGLES, 0, positionsArr[i].length);
     }
-    
   };
 }
