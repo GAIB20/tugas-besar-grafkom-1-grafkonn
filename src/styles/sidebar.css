@@ -1,0 +1,42 @@
+/* sidebar.css */
+
+.slider {
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 4px;
+    background: linear-gradient(to bottom, #343434, #949494);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  /* Custom shape for thumb */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px; /* Adjust width as needed */
+    height: 12px; /* Adjust height as needed */
+    background: url('src/assets/thumb.png') center center no-repeat; /* Use your custom image */
+    background-size: cover; /* Make sure the image covers the thumb */
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 10px; /* Adjust width as needed */
+    height: 20px; /* Adjust height as needed */
+    background: url('src/assets/thumb.png') center center no-repeat; /* Use your custom image */
+    background-size: cover; /* Make sure the image covers the thumb */
+    cursor: pointer;
+  }
+  
+  label {
+    display: inline-block;
+    width: 2.5rem; /* Adjust width as needed */
+    text-align: center;
+    font-size: 0.75rem; /* Adjust font size as needed */
+}
