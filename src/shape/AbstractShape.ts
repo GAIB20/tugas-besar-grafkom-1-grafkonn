@@ -11,10 +11,13 @@ export abstract class AbstractShape {
   // for rotation purposes
   public rotation: number[];
 
+  // for color purposes
+  public color: number[]
+
   constructor(id: number) {
     this.id = id;
     this.indexInBuffer = id
-    
+
     this.locationArr = [];
     this.bufferLocSize = 0;
     this.indexInBuffer = -1;
@@ -22,6 +25,9 @@ export abstract class AbstractShape {
     this.translationArr = [0, 0];
 
     this.rotation = [0, 1];
+
+    // must be initialized on every different shape
+    this.color = []
   }
 
   abstract onCreate(

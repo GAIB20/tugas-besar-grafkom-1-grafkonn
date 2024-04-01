@@ -32,20 +32,19 @@ export function createWebGL() {
 
   // get the glsl variables
   const positionAttribute = gl.getAttribLocation(program, "a_position");
+  const colorAttribute = gl.getAttribLocation(program, "a_color");
+
   const resolutionUniform = gl.getUniformLocation(program, "u_resolution");
-  const colorUniform = gl.getUniformLocation(program, "u_color");
   const translationUniform = gl.getUniformLocation(program, "u_translation");
   const rotationUniform = gl.getUniformLocation(program, "u_rotation");
 
-  // create position buffer and bind it
+  // create position and color buffer
   const positionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  const colorBuffer = gl.createBuffer();
 
   const shapesArr: AbstractShape[] = [];
   const draggedVertexIdxArr: number[] = [];
   const selectedShapeIdx: number = 0;
-
-  const color = [Math.random(), Math.random(), Math.random(), 1];
 
   // event listeners to create shape
   let mouseDownType = "create"; // TODO: modify when UI ready
@@ -73,16 +72,20 @@ export function createWebGL() {
     // draw scene
     resizeCanvas(gl.canvas as HTMLCanvasElement);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    // gl.clear(gl.COLOR_BUFFER_BIT);
+
     gl.useProgram(program);
+    // Turn on the position attribute
     gl.enableVertexAttribArray(positionAttribute);
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+    // Turn on the color attribute
+    gl.enableVertexAttribArray(colorAttribute);
 
     // set the variable
     gl.uniform2f(resolutionUniform, gl.canvas.width, gl.canvas.height);
 
     for (let i = 0; i < shapesArr.length; i++) {
-      // set the buffer data
+      // set the position buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       gl.bufferData(
         gl.ARRAY_BUFFER,
         new Float32Array(shapesArr[i].locationArr),
@@ -90,8 +93,13 @@ export function createWebGL() {
       );
       gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
 
-      // set the color
-      gl.uniform4fv(colorUniform, color);
+      // set the color buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(shapesArr[i].color),
+        gl.STATIC_DRAW);
+      gl.vertexAttribPointer(colorAttribute, 4, gl.FLOAT, false, 0, 0);
 
       // set the translate and rotate
       const translate = shapesArr[i].translationArr;
