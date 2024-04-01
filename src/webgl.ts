@@ -51,9 +51,6 @@ export function createWebGL() {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   const shapesArr: AbstractShape[] = [];
-  const positionsArr: number[][] = [];
-  const translationArr: number[] = [];
-  const rotationArr: number[] = [];
   const draggedVertexIdxArr: number[] = [];
   const selectedShapeIdx: number = 0;
 
@@ -70,14 +67,10 @@ export function createWebGL() {
   });
 
   canvas.addEventListener("mousedown", (e: MouseEvent) => {
-    positionsArr.push([]);
     onCreateHandleMouseDown(
       e,
-      positionsArr[shapesArr.length],
       canvas,
       shapesArr,
-      translationArr,
-      rotationArr,
       mouseDownType,
       createType
     );
@@ -89,7 +82,6 @@ export function createWebGL() {
     handleTranslate(
       e,
       selectedShapeIdx,
-      translationArr,
       shapesArr[selectedShapeIdx],
       "x"
     );
@@ -99,7 +91,6 @@ export function createWebGL() {
     handleTranslate(
       e,
       selectedShapeIdx,
-      translationArr,
       shapesArr[selectedShapeIdx],
       "y"
     );
@@ -108,7 +99,7 @@ export function createWebGL() {
 
   // event listeners for rotation
   setupSlider("#slider-rotation", 360, (e: Event) => {
-    handleRotate(e, selectedShapeIdx, rotationArr, shapesArr[selectedShapeIdx]);
+    handleRotate(e, selectedShapeIdx, shapesArr[selectedShapeIdx]);
     drawScene();
   });
 
@@ -128,7 +119,6 @@ export function createWebGL() {
       onMoveVertexHandleMouseMove(
         e,
         shapesArr[selectedShapeIdx],
-        positionsArr[selectedShapeIdx],
         draggedVertexIdxArr,
         canvas
       );
@@ -147,16 +137,15 @@ export function createWebGL() {
     gl.useProgram(program);
     gl.enableVertexAttribArray(positionAttribute);
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    console.log(positionsArr[selectedShapeIdx]);
 
     // set the variable
     gl.uniform2f(resolutionUniform, gl.canvas.width, gl.canvas.height);
 
-    for (let i = 0; i < positionsArr.length; i++) {
+    for (let i = 0; i < shapesArr.length; i++) {
       // set the buffer data
       gl.bufferData(
         gl.ARRAY_BUFFER,
-        new Float32Array(positionsArr[i]),
+        new Float32Array(shapesArr[i].locationArr),
         gl.STATIC_DRAW
       );
       gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
@@ -165,13 +154,13 @@ export function createWebGL() {
       gl.uniform4fv(colorUniform, color);
 
       // set the translate and rotate
-      const translate = [translationArr[2 * i], translationArr[2 * i + 1]];
-      const rotate = [rotationArr[2 * i], rotationArr[2 * i + 1]];
+      const translate = shapesArr[i].translationArr;
+      const rotate = shapesArr[i].rotation;
       gl.uniform2fv(rotationUniform, rotate);
       gl.uniform2fv(translationUniform, translate);
 
       // draw the arrays
-      gl.drawArrays(gl.TRIANGLES, 0, positionsArr[i].length);
+      gl.drawArrays(gl.TRIANGLES, 0, shapesArr[i].locationArr.length);
     }
   };
 }

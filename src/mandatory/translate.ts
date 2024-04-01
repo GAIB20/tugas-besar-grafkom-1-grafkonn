@@ -3,7 +3,6 @@ import { AbstractShape } from "../shape/AbstractShape";
 export function handleTranslate(
   e: Event,
   chosenShapeIndex: number,
-  translate: number[],
   shape: AbstractShape,
   type: "x" | "y"
 ) {
@@ -12,7 +11,5 @@ export function handleTranslate(
     const value = parseInt(slider.value);
 
     shape.translationArr[type == "x" ? 0 : 1] = value;
-    const index = shape.indexInTranslateBuffer + (type == "x" ? 0 : 1);
-    translate[index] = value;
   }
 }

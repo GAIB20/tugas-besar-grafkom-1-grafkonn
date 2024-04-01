@@ -45,7 +45,7 @@ export function onMoveVertexHandleMouseDown(
 export function onMoveVertexHandleMouseMove(
   event: MouseEvent,
   shape: AbstractShape,
-  mainLocationBuffer: number[],
+  // mainLocationBuffer: number[],
   draggedVertexIdxArr: number[],
   canvas: HTMLCanvasElement
 ) {
@@ -69,11 +69,11 @@ export function onMoveVertexHandleMouseMove(
       shape.locationArr[draggedVertexIdxArr[i] * 2] = unRotatedX;
       shape.locationArr[draggedVertexIdxArr[i] * 2 + 1] = unRotatedY;
 
-      mainLocationBuffer[shape.indexInLocBuffer + draggedVertexIdxArr[i] * 2] =
-        shape.locationArr[draggedVertexIdxArr[i] * 2];
-      mainLocationBuffer[
-        shape.indexInLocBuffer + draggedVertexIdxArr[i] * 2 + 1
-      ] = shape.locationArr[draggedVertexIdxArr[i] * 2 + 1];
+      // mainLocationBuffer[shape.indexInLocBuffer + draggedVertexIdxArr[i] * 2] =
+      //   shape.locationArr[draggedVertexIdxArr[i] * 2];
+      // mainLocationBuffer[
+      //   shape.indexInLocBuffer + draggedVertexIdxArr[i] * 2 + 1
+      // ] = shape.locationArr[draggedVertexIdxArr[i] * 2 + 1];
     }
   }
 }
