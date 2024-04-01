@@ -12,9 +12,11 @@ export function createWebGL() {
     return;
   }
   const gl = canvas.getContext("webgl2");
-  if (!gl) {
-    return;
-  }
+  if (!gl) return;
+
+  const colorPicker = document.querySelector<HTMLInputElement>("#color-picker");
+  if (!colorPicker) return;
+
   const selection = document.getElementById(
     "selectOption"
   ) as HTMLSelectElement;
@@ -44,6 +46,7 @@ export function createWebGL() {
 
   const shapesArr: AbstractShape[] = [];
   const draggedVertexIdxArr: number[] = [];
+  const changedColorVertexIdxArr : number[] = [];
   const selectedShapeIdx: number = 0;
 
   // event listeners to create shape
@@ -59,14 +62,20 @@ export function createWebGL() {
   // mouseDownType and createType is not inside here because we need it to be persistent across render
   setupEventListener(
     canvas,
+    colorPicker,
     () => shapesArr,
     () => mouseDownType,
     () => createType,
     () => selectedShapeIdx,
     () => shapesArr[selectedShapeIdx],
     () => drawScene(),
-    () => draggedVertexIdxArr
+    () => draggedVertexIdxArr,
+    () => changedColorVertexIdxArr,
   );
+
+  colorPicker.focus();
+  colorPicker.value = "#FFCC00";
+  colorPicker.click();
 
   const drawScene = () => {
     // draw scene
@@ -98,7 +107,8 @@ export function createWebGL() {
       gl.bufferData(
         gl.ARRAY_BUFFER,
         new Float32Array(shapesArr[i].color),
-        gl.STATIC_DRAW);
+        gl.STATIC_DRAW
+      );
       gl.vertexAttribPointer(colorAttribute, 4, gl.FLOAT, false, 0, 0);
 
       // set the translate and rotate

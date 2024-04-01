@@ -1,3 +1,6 @@
+import {
+  onChangeColorVertexHandleMouseDown,
+} from "../mandatory/changeColor";
 import { onCreateHandleMouseDown } from "../mandatory/create";
 import {
   onMoveVertexHandleMouseDown,
@@ -11,6 +14,7 @@ import { setupSlider } from "./setupSlider";
 
 export function setupEventListener(
   canvas: HTMLCanvasElement,
+  colorPicker: HTMLInputElement,
   // make it as a function so that it will always called on render, not just at the first render
   shapesArr: () => AbstractShape[],
   mouseDownType: () => string,
@@ -18,7 +22,8 @@ export function setupEventListener(
   selectedShapeIdx: () => number,
   shape: () => AbstractShape,
   drawScene: () => void,
-  draggedVertexIdxArr: () => number[]
+  draggedVertexIdxArr: () => number[],
+  changedColorVertexIdxArr: () => number[]
 ) {
   // event listeners to change options
 
@@ -56,7 +61,7 @@ export function setupEventListener(
       e,
       canvas,
       selectedShapeIdx(),
-      shapesArr()[selectedShapeIdx()],
+      shape(),
       draggedVertexIdxArr(),
       mouseDownType()
     )
@@ -75,4 +80,18 @@ export function setupEventListener(
   canvas.addEventListener("mouseup", () =>
     onMoveVertexHandleMouseUp(draggedVertexIdxArr())
   );
+
+  // event listeners to change colors
+  canvas.addEventListener("mousedown", (e: MouseEvent) => {
+    onChangeColorVertexHandleMouseDown(
+      e,
+      canvas,
+      selectedShapeIdx(),
+      shape(),
+      changedColorVertexIdxArr(),
+      mouseDownType(),
+      colorPicker,
+      drawScene
+    );
+  });
 }

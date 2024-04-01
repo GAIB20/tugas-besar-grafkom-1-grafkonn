@@ -15,7 +15,7 @@ function App() {
       <Toolbar />
 
       {/* Main Canvas */}
-      <div className="w-full h-full">
+      <div className="w-full h-full relative">
         <canvas
           id="canvas"
           className="h-full w-full bg-primaryCanvas border-black"

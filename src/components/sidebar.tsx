@@ -83,8 +83,10 @@ function Sidebar() {
                 <select id="selectOption">
                     <option value="create">Create</option>
                     <option value="move">Move vertex</option>
+                    <option value="changeColor">Change Color</option>
                 </select>
             </div>
+            <input id="color-picker" type="color" className="opacity-0 w-0 h-0 ml-3" />
         </div>
     );
 }

@@ -7,7 +7,7 @@ export function onMoveVertexHandleMouseDown(
   chosenShapeIndex: number,
   shape: AbstractShape,
   draggedVertexIdxArr: number[],
-  mouseDownType: "create" | "move" | string
+  mouseDownType: "create" | "move" | "changeColor" | string
 ) {
   if (chosenShapeIndex === shape.id && mouseDownType === "move") {
     const canvasRect = canvas.getBoundingClientRect();
@@ -68,12 +68,6 @@ export function onMoveVertexHandleMouseMove(
 
       shape.locationArr[draggedVertexIdxArr[i] * 2] = unRotatedX;
       shape.locationArr[draggedVertexIdxArr[i] * 2 + 1] = unRotatedY;
-
-      // mainLocationBuffer[shape.indexInLocBuffer + draggedVertexIdxArr[i] * 2] =
-      //   shape.locationArr[draggedVertexIdxArr[i] * 2];
-      // mainLocationBuffer[
-      //   shape.indexInLocBuffer + draggedVertexIdxArr[i] * 2 + 1
-      // ] = shape.locationArr[draggedVertexIdxArr[i] * 2 + 1];
     }
   }
 }
