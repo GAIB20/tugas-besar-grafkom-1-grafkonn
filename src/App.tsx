@@ -15,13 +15,15 @@ function App() {
       <Toolbar />
 
       {/* Main Canvas */}
-      <canvas
-        id="canvas"
-        className="flex-grow bg-primaryCanvas border-black"
-      />
+      <div className="w-full h-full">
+        <canvas
+          id="canvas"
+          className="h-full w-full bg-primaryCanvas border-black"
+        />
+      </div>
 
       {/* Properties */}
-      <Sidebar/>
+      <Sidebar />
     </div>
   );
 }
