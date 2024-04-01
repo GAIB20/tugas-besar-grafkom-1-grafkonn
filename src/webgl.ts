@@ -1,18 +1,9 @@
-// init index.ts
-import { onCreateHandleMouseDown } from "./mandatory/create";
-import {
-  onMoveVertexHandleMouseDown,
-  onMoveVertexHandleMouseMove,
-  onMoveVertexHandleMouseUp,
-} from "./mandatory/moveVertex";
-import { handleRotate } from "./mandatory/rotate";
-import { handleTranslate } from "./mandatory/translate";
 import { fragmentShaderSource } from "./shader/fragmentShaderSource";
 import { vertexShaderSource } from "./shader/vertexShaderSource";
 import { AbstractShape } from "./shape/AbstractShape";
 import { createProgram } from "./utils/program";
 import { resizeCanvas } from "./utils/resize-canvas";
-import { setupSlider } from "./utils/setupSlider";
+import { setupEventListener } from "./utils/setupEventListener";
 import { createAllShader } from "./utils/shader";
 
 export function createWebGL() {
@@ -60,73 +51,22 @@ export function createWebGL() {
   let mouseDownType = "create"; // TODO: modify when UI ready
   const createType = "square"; // TODO: modify when UI ready
 
-  // event listeners to change options
+  // // event listeners to change options
   selection.addEventListener("change", (e: Event) => {
     const selection = e.target as HTMLSelectElement;
     mouseDownType = selection.value;
   });
 
-  canvas.addEventListener("mousedown", (e: MouseEvent) => {
-    onCreateHandleMouseDown(
-      e,
-      canvas,
-      shapesArr,
-      mouseDownType,
-      createType
-    );
-    drawScene();
-  });
-
-  // event listeners for translation
-  setupSlider("#slider-translation-x", gl.canvas.width, (e: Event) => {
-    handleTranslate(
-      e,
-      selectedShapeIdx,
-      shapesArr[selectedShapeIdx],
-      "x"
-    );
-    drawScene();
-  });
-  setupSlider("#slider-translation-y", gl.canvas.height, (e: Event) => {
-    handleTranslate(
-      e,
-      selectedShapeIdx,
-      shapesArr[selectedShapeIdx],
-      "y"
-    );
-    drawScene();
-  });
-
-  // event listeners for rotation
-  setupSlider("#slider-rotation", 360, (e: Event) => {
-    handleRotate(e, selectedShapeIdx, shapesArr[selectedShapeIdx]);
-    drawScene();
-  });
-
-  // event listeners for moving vertex
-  canvas.addEventListener("mousedown", (e: MouseEvent) =>
-    onMoveVertexHandleMouseDown(
-      e,
-      canvas,
-      selectedShapeIdx,
-      shapesArr[selectedShapeIdx],
-      draggedVertexIdxArr,
-      mouseDownType
-    )
-  );
-  canvas.addEventListener("mousemove", (e: MouseEvent) => {
-    if (draggedVertexIdxArr.length > 0) {
-      onMoveVertexHandleMouseMove(
-        e,
-        shapesArr[selectedShapeIdx],
-        draggedVertexIdxArr,
-        canvas
-      );
-      drawScene();
-    }
-  });
-  canvas.addEventListener("mouseup", () =>
-    onMoveVertexHandleMouseUp(draggedVertexIdxArr)
+  // mouseDownType and createType is not inside here because we need it to be persistent across render
+  setupEventListener(
+    canvas,
+    () => shapesArr,
+    () => mouseDownType,
+    () => createType,
+    () => selectedShapeIdx,
+    () => shapesArr[selectedShapeIdx],
+    () => drawScene(),
+    () => draggedVertexIdxArr
   );
 
   const drawScene = () => {
