@@ -13,6 +13,7 @@ export function onChangeColorVertexHandleMouseDown(
   drawScene: () => void,
 ) {
   if (chosenShapeIndex === shape.id && mouseDownType === "changeColor") {
+    changedColorVertexIdxArr.splice(0)
 
     const canvasRect = canvas.getBoundingClientRect();
 
