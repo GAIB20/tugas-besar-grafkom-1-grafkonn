@@ -21,6 +21,7 @@ export function setupEventListener(
   >,
   canvas: HTMLCanvasElement,
   colorPicker: HTMLInputElement,
+  selectionShapes: HTMLSelectElement,
   // make it as a function so that it will always called on render, not just at the first render
   shapesArr: () => AbstractShape[],
   mouseDownType: () => string,
@@ -31,13 +32,12 @@ export function setupEventListener(
   draggedVertexIdxArr: () => number[],
   changedColorVertexIdxArr: () => number[]
 ) {
-  // event listeners to change options
-
   // Event listeners for creating new shape
   canvas.addEventListener("mousedown", (e: MouseEvent) => {
     onCreateHandleMouseDown(
       e,
       canvas,
+      selectionShapes,
       shapesArr(),
       mouseDownType(),
       createType(), 
@@ -48,17 +48,17 @@ export function setupEventListener(
 
   // event listeners for translation
   setupSlider("#slider-translation-x", canvas.width, (e: Event) => {
-    handleTranslate(e, selectedShapeIdx(), shape(), "x");
+    handleTranslate(e, shape(), "x");
     drawScene();
   });
   setupSlider("#slider-translation-y", canvas.height, (e: Event) => {
-    handleTranslate(e, selectedShapeIdx(), shape(), "y");
+    handleTranslate(e, shape(), "y");
     drawScene();
   });
 
   // event listeners for rotation
   setupSlider("#slider-rotation", 360, (e: Event) => {
-    handleRotate(e, selectedShapeIdx(), shape());
+    handleRotate(e, shape());
     drawScene();
   });
 
@@ -67,7 +67,6 @@ export function setupEventListener(
     onMoveVertexHandleMouseDown(
       e,
       canvas,
-      selectedShapeIdx(),
       shape(),
       draggedVertexIdxArr(),
       mouseDownType()

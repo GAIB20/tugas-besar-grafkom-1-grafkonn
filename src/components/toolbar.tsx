@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import LineIcon from "../assets/toolbar-icon/line.png";
 import SquareIcon from "../assets/toolbar-icon/square.png";
 import RectangleIcon from "../assets/toolbar-icon/rectangle.png";

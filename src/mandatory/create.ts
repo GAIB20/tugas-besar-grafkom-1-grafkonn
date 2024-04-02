@@ -4,6 +4,7 @@ import { Square } from "../shape/Square";
 export function onCreateHandleMouseDown(
   event: MouseEvent,
   canvas: HTMLCanvasElement,
+  selectionShapes: HTMLSelectElement,
   shapeBuffer: AbstractShape[],
   mouseDownType: "create" | "move" | string,
   creationType: "square" | "line" | string,
@@ -30,9 +31,17 @@ export function onCreateHandleMouseDown(
       shapeBuffer.push(shape);
     }
 
+    shape = shapeBuffer[shapeBuffer.length - 1]
+    const selectionShapesEvent = new Event('change', { bubbles: true });
+    selectionShapes.value = `${shape.id}-${shape.type}`
+
+    // setting it to timeout because the dispatch event is triggered before the shapebuffer update
+    setTimeout(() => selectionShapes.dispatchEvent(selectionShapesEvent), 0);
+    
+
     setShapeTypeArr((prevState) => {
       const newState = [...prevState];
-      const newShapeType = {id: shape.id, type: shape.type}
+      const newShapeType = { id: shape.id, type: shape.type };
       newState.push(newShapeType);
       return newState;
     });

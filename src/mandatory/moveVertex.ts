@@ -4,12 +4,11 @@ import { unTranslateRotate } from "../utils/unTranslateRotate";
 export function onMoveVertexHandleMouseDown(
   event: MouseEvent,
   canvas: HTMLCanvasElement,
-  chosenShapeIndex: number,
   shape: AbstractShape,
   draggedVertexIdxArr: number[],
   mouseDownType: "create" | "move" | "changeColor" | string
 ) {
-  if (chosenShapeIndex === shape.id && mouseDownType === "move") {
+  if (mouseDownType === "move") {
     const canvasRect = canvas.getBoundingClientRect();
 
     // Calculate the mouse position relative to the canvas
@@ -45,7 +44,6 @@ export function onMoveVertexHandleMouseDown(
 export function onMoveVertexHandleMouseMove(
   event: MouseEvent,
   shape: AbstractShape,
-  // mainLocationBuffer: number[],
   draggedVertexIdxArr: number[],
   canvas: HTMLCanvasElement
 ) {
