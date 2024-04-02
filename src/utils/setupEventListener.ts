@@ -1,6 +1,4 @@
-import {
-  onChangeColorVertexHandleMouseDown,
-} from "../mandatory/changeColor";
+import { onChangeColorVertexHandleMouseDown } from "../mandatory/changeColor";
 import { onCreateHandleMouseDown } from "../mandatory/create";
 import {
   onMoveVertexHandleMouseDown,
@@ -13,6 +11,14 @@ import { AbstractShape } from "../shape/AbstractShape";
 import { setupSlider } from "./setupSlider";
 
 export function setupEventListener(
+  setShapeTypeArr: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+      }[]
+    >
+  >,
   canvas: HTMLCanvasElement,
   colorPicker: HTMLInputElement,
   // make it as a function so that it will always called on render, not just at the first render
@@ -34,7 +40,8 @@ export function setupEventListener(
       canvas,
       shapesArr(),
       mouseDownType(),
-      createType()
+      createType(), 
+      setShapeTypeArr
     );
     drawScene();
   });

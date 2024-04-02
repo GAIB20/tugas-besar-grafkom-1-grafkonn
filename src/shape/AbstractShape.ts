@@ -1,6 +1,7 @@
 export abstract class AbstractShape {
   public id: number;
   // for location purposes
+  public type?: "square" | "circle" | "line" | "rectangle" | "polygon";
   public locationArr: number[];
   public indexInBuffer: number;
   public bufferLocSize: number;
@@ -17,7 +18,8 @@ export abstract class AbstractShape {
   constructor(id: number) {
     this.id = id;
     this.indexInBuffer = id
-
+    this.type = undefined // defined later inside onCreate
+ 
     this.locationArr = [];
     this.bufferLocSize = 0;
     this.indexInBuffer = -1;

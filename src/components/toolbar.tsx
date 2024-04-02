@@ -9,75 +9,82 @@ import DeleteIcon from "../assets/toolbar-icon/delete.png";
 import SaveIcon from "../assets/toolbar-icon/save.png";
 import LoadIcon from "../assets/toolbar-icon/load.png";
 
-function Toolbar() {
-    const [activeButton, setActiveButton] = useState(null);
+interface ToolbarProps {
+  shapeTypeArr: {
+    id: number;
+    type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+  }[];
+}
 
-    const handleClick = (buttonName) => {
-        setActiveButton(buttonName);
-    };
+function Toolbar({ shapeTypeArr }: ToolbarProps) {
+  const [activeButton, setActiveButton] = useState<string | null>(null);
 
-    const buttonStyle = (buttonName) => {
-        return activeButton === buttonName ? "bg-primaryCanvas" : "bg-primaryDark";
-    };
+  const handleClick = (buttonName: string) => {
+    setActiveButton(buttonName);
+  };
 
-    return (
-        <div className="bg-primaryDark w-10 h-full p-1 static flex flex-col items-center">
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Line")}`}
-                onClick={() => handleClick("Line")}
-            >
-                <img src={LineIcon} alt="Line" className="w-4 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Square")}`}
-                onClick={() => handleClick("Square")}
-            >
-                <img src={SquareIcon} alt="Square" className="w-4 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Rectangle")}`}
-                onClick={() => handleClick("Rectangle")}
-            >
-                <img src={RectangleIcon} alt="Rectangle" className="w-6 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Polygon")}`}
-                onClick={() => handleClick("Polygon")}
-            >
-                <img src={PolygonIcon} alt="Polygon" className="w-6 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Select")}`}
-                onClick={() => handleClick("Select")}
-            >
-                <img src={SelectIcon} alt="Select" className="w-4 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Move")}`}
-                onClick={() => handleClick("Move")}
-            >
-                <img src={MoveIcon} alt="Move" className="w-4 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Delete")}`}
-                onClick={() => handleClick("Delete")}
-            >
-                <img src={DeleteIcon} alt="Delete" className="w-4 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Save")}`}
-                onClick={() => handleClick("Save")}
-            >
-                <img src={SaveIcon} alt="Save" className="w-4 h-auto" />
-            </button>
-            <button
-                className={`p-1 m-0.5 rounded-sm ${buttonStyle("Load")}`}
-                onClick={() => handleClick("Load")}
-            >
-                <img src={LoadIcon} alt="Load" className="w-6 h-auto" />
-            </button>
-        </div>
-    );
+  const buttonStyle = (buttonName: string) => {
+    return activeButton === buttonName ? "bg-primaryCanvas" : "bg-primaryDark";
+  };
+
+  return (
+    <div className="bg-primaryDark w-10 h-full p-1 static flex flex-col items-center">
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Line")}`}
+        onClick={() => handleClick("Line")}
+      >
+        <img src={LineIcon} alt="Line" className="w-4 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Square")}`}
+        onClick={() => handleClick("Square")}
+      >
+        <img src={SquareIcon} alt="Square" className="w-4 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Rectangle")}`}
+        onClick={() => handleClick("Rectangle")}
+      >
+        <img src={RectangleIcon} alt="Rectangle" className="w-6 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Polygon")}`}
+        onClick={() => handleClick("Polygon")}
+      >
+        <img src={PolygonIcon} alt="Polygon" className="w-6 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Select")}`}
+        onClick={() => handleClick("Select")}
+      >
+        <img src={SelectIcon} alt="Select" className="w-4 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Move")}`}
+        onClick={() => handleClick("Move")}
+      >
+        <img src={MoveIcon} alt="Move" className="w-4 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Delete")}`}
+        onClick={() => handleClick("Delete")}
+      >
+        <img src={DeleteIcon} alt="Delete" className="w-4 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Save")}`}
+        onClick={() => handleClick("Save")}
+      >
+        <img src={SaveIcon} alt="Save" className="w-4 h-auto" />
+      </button>
+      <button
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Load")}`}
+        onClick={() => handleClick("Load")}
+      >
+        <img src={LoadIcon} alt="Load" className="w-6 h-auto" />
+      </button>
+    </div>
+  );
 }
 
 export default Toolbar;

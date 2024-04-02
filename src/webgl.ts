@@ -6,7 +6,16 @@ import { resizeCanvas } from "./utils/resize-canvas";
 import { setupEventListener } from "./utils/setupEventListener";
 import { createAllShader } from "./utils/shader";
 
-export function createWebGL() {
+export function createWebGL(
+  setShapeTypeArr: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+      }[]
+    >
+  >
+) {
   const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
   if (!canvas) {
     return;
@@ -46,7 +55,7 @@ export function createWebGL() {
 
   const shapesArr: AbstractShape[] = [];
   const draggedVertexIdxArr: number[] = [];
-  const changedColorVertexIdxArr : number[] = [];
+  const changedColorVertexIdxArr: number[] = [];
   const selectedShapeIdx: number = 0;
 
   // event listeners to create shape
@@ -61,6 +70,7 @@ export function createWebGL() {
 
   // mouseDownType and createType is not inside here because we need it to be persistent across render
   setupEventListener(
+    setShapeTypeArr,
     canvas,
     colorPicker,
     () => shapesArr,
@@ -70,7 +80,7 @@ export function createWebGL() {
     () => shapesArr[selectedShapeIdx],
     () => drawScene(),
     () => draggedVertexIdxArr,
-    () => changedColorVertexIdxArr,
+    () => changedColorVertexIdxArr
   );
 
   colorPicker.focus();

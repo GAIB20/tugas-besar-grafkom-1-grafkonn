@@ -6,7 +6,15 @@ export function onCreateHandleMouseDown(
   canvas: HTMLCanvasElement,
   shapeBuffer: AbstractShape[],
   mouseDownType: "create" | "move" | string,
-  creationType: "square" | "line" | string
+  creationType: "square" | "line" | string,
+  setShapeTypeArr: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+      }[]
+    >
+  >
 ) {
   if (mouseDownType === "create") {
     const canvasRect = canvas.getBoundingClientRect();
@@ -21,5 +29,12 @@ export function onCreateHandleMouseDown(
       shape.onCreate(mouseX, mouseY);
       shapeBuffer.push(shape);
     }
+
+    setShapeTypeArr((prevState) => {
+      const newState = [...prevState];
+      const newShapeType = {id: shape.id, type: shape.type}
+      newState.push(newShapeType);
+      return newState;
+    });
   }
 }
