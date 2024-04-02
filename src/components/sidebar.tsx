@@ -1,8 +1,19 @@
 import "../styles/sidebar.css";
-function Sidebar() {
-  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>, sliderId: string) => {
+
+interface SidebarProps {
+  shapeTypeArr: {
+    id: number;
+    type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+  }[];
+}
+
+function Sidebar({ shapeTypeArr }: SidebarProps) {
+  const handleSliderChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    sliderId: string
+  ) => {
     const newValue = event.target.value;
-    const slider = document.getElementById(`sliderVal${sliderId}`)
+    const slider = document.getElementById(`sliderVal${sliderId}`);
     if (!slider) return;
     slider.textContent = newValue;
   };
@@ -12,11 +23,24 @@ function Sidebar() {
       <div className="p-2 text-center">
         <p className="text-sm">Slider</p>
         <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
+        <div className="w-full flex flex-col items-start">
+          <p>Chose Shape</p>
+          <select id="selectShape" className="w-full">
+            {shapeTypeArr
+              .filter(
+                (shape, index, self) =>
+                  self.findIndex((i) => i.id === shape.id) === index
+              )
+              .map((shape) => (
+                <option key={`${shape.id}`} value={`${shape.id}-${shape.type}`}>
+                  {shape.id}-{shape.type}
+                </option>
+              ))}
+          </select>
+        </div>
         <div className="flex flex-col gap-y-2">
           <div className="flex items-center mt-2">
-            <span className="text-xs pr-2  w-12 text-left">
-              x-axis
-            </span>
+            <span className="text-xs pr-2  w-12 text-left">x-axis</span>
             <input
               type="range"
               id="slider-translation-x"

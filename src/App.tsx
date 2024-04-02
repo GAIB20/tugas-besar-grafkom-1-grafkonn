@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="flex h-screen">
       {/* Toolbar */}
-      <Toolbar shapeTypeArr={shapeTypeArr} />
+      <Toolbar />
 
       {/* Main Canvas */}
       <div className="w-full h-full relative">
@@ -30,7 +30,7 @@ function App() {
       </div>
 
       {/* Properties */}
-      <Sidebar />
+      <Sidebar shapeTypeArr={shapeTypeArr}/>
     </div>
   );
 }

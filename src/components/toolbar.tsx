@@ -9,14 +9,8 @@ import DeleteIcon from "../assets/toolbar-icon/delete.png";
 import SaveIcon from "../assets/toolbar-icon/save.png";
 import LoadIcon from "../assets/toolbar-icon/load.png";
 
-interface ToolbarProps {
-  shapeTypeArr: {
-    id: number;
-    type?: "square" | "circle" | "line" | "rectangle" | "polygon";
-  }[];
-}
 
-function Toolbar({ shapeTypeArr }: ToolbarProps) {
+function Toolbar() {
   const [activeButton, setActiveButton] = useState<string | null>(null);
 
   const handleClick = (buttonName: string) => {
