@@ -5,6 +5,7 @@ import {
   onMoveVertexHandleMouseMove,
   onMoveVertexHandleMouseUp,
 } from "../mandatory/moveVertex";
+import { handleResize } from "../mandatory/resize";
 import { handleRotate } from "../mandatory/rotate";
 import { handleTranslate } from "../mandatory/translate";
 import { AbstractShape } from "../shape/AbstractShape";
@@ -59,6 +60,11 @@ export function setupEventListener(
   // event listeners for rotation
   setupSlider("#slider-rotation", 360, (e: Event) => {
     handleRotate(e, shape());
+    drawScene();
+  });
+
+  setupSlider("#slider-resize", canvas.width, (e: Event) => {
+    handleResize(e, shape())
     drawScene();
   });
 

@@ -97,6 +97,29 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
           <option value="move">Move vertex</option>
           <option value="changeColor">Change Color</option>
         </select>
+        <div className="p-2">
+        <p className="text-sm">Resize</p>
+        <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
+        <div className="flex flex-col gap-y-2">
+          <div className="flex items-center mt-2">
+            <span className="text-xs pr-2  w-12 text-left">factor</span>
+            <input
+              type="range"
+              id="slider-resize"
+              min="0"
+              max="100"
+              defaultValue="1"
+              className="slider"
+              onChange={(event) => handleSliderChange(event, "Resize")}
+            />
+            <div className="bg-black rounded-md w-10 px-2 py-1 ml-2 text-white text-xs">
+              <output id="sliderValX" style={{ display: "block" }}>
+                0
+              </output>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       <input
         id="color-picker"

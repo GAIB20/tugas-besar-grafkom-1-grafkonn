@@ -62,7 +62,7 @@ export function createWebGL(
 
   // event listeners to create shape
   let mouseDownType = "create";
-  const createType = "square"; // TODO: modify when UI ready
+  const createType = "rectangle"; // TODO: modify when UI ready
   let selectedShapeIdx: number = 0;
 
   // event listeners to change options

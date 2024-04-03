@@ -4,10 +4,11 @@ import { AbstractShape } from "./AbstractShape";
 export class Rectangle extends AbstractShape {
     onCreate(width: number, height: number) {
         const size = width < height ? height : width;
-        const newLoc = [0, 0, 0, size, size, size, size, size, size, 0, 0, 0];
+        const newLoc = [0, 0, 0, size, size*2, size, size*2, size, size*2, 0, 0, 0];
         this.locationArr = newLoc;
         this.bufferLocSize = this.locationArr.length;
         this.type = "rectangle";
+        this.scaleFactor = 0;
         const v1 = [Math.random(), Math.random(), Math.random(), 1];
         const v2 = [Math.random(), Math.random(), Math.random(), 1];
         const v3 = [Math.random(), Math.random(), Math.random(), 1];

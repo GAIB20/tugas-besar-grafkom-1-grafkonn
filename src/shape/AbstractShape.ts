@@ -13,7 +13,10 @@ export abstract class AbstractShape {
   public rotation: number[];
 
   // for color purposes
-  public color: number[]
+  public color: number[];
+
+  // for resize purposes
+  public scaleFactor: number;
 
   constructor(id: number) {
     this.id = id;
@@ -30,6 +33,7 @@ export abstract class AbstractShape {
 
     // must be initialized on every different shape
     this.color = []
+    this.scaleFactor = 0;
   }
 
   abstract onCreate(
