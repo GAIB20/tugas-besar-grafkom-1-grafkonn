@@ -21,23 +21,22 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
   return (
     <div className="static bg-primaryDark text-white">
       <div className="p-2 text-center">
-        <p className="text-sm">Slider</p>
+        <p className="text-sm">Choose Shape</p>
+        <hr className="border-primaryCanvas border-[0.1px] opacity-25 mb-0.5" />
+        <select id="selectShape" className="w-full selector">
+          {shapeTypeArr
+            .filter(
+              (shape, index, self) =>
+                self.findIndex((i) => i.id === shape.id) === index
+            )
+            .map((shape) => (
+              <option key={`${shape.id}`} value={`${shape.id}-${shape.type}`}>
+                {shape.id}-{shape.type}
+              </option>
+            ))}
+        </select>
+        <p className="text-sm mt-4">Slider</p>
         <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
-        <div className="w-full flex flex-col items-start">
-          <p>Chose Shape</p>
-          <select id="selectShape" className="w-full">
-            {shapeTypeArr
-              .filter(
-                (shape, index, self) =>
-                  self.findIndex((i) => i.id === shape.id) === index
-              )
-              .map((shape) => (
-                <option key={`${shape.id}`} value={`${shape.id}-${shape.type}`}>
-                  {shape.id}-{shape.type}
-                </option>
-              ))}
-          </select>
-        </div>
         <div className="flex flex-col gap-y-2">
           <div className="flex items-center mt-2">
             <span className="text-xs pr-2  w-12 text-left">x-axis</span>
@@ -91,9 +90,9 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="p-2">
-        <select id="selectOption">
+        <p className="text-sm mt-4">Choose Method</p>
+        <hr className="border-primaryCanvas border-[0.1px] opacity-25 mb-0.5" />
+        <select id="selectOption" className="selector">
           <option value="create">Create</option>
           <option value="move">Move vertex</option>
           <option value="changeColor">Change Color</option>

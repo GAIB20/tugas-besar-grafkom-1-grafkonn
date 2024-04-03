@@ -15,28 +15,53 @@
     opacity: 1;
   }
   
-  /* Custom shape for thumb */
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 8px; /* Adjust width as needed */
-    height: 12px; /* Adjust height as needed */
-    background: url('src/assets/thumb.png') center center no-repeat; /* Use your custom image */
-    background-size: cover; /* Make sure the image covers the thumb */
+    width: 8px;
+    height: 12px;
+    background: url('src/assets/thumb.png') center center no-repeat;
+    background-size: cover;
     cursor: pointer;
   }
   
   .slider::-moz-range-thumb {
-    width: 10px; /* Adjust width as needed */
-    height: 20px; /* Adjust height as needed */
-    background: url('src/assets/thumb.png') center center no-repeat; /* Use your custom image */
-    background-size: cover; /* Make sure the image covers the thumb */
+    width: 10px;
+    height: 20px;
+    background: url('src/assets/thumb.png') center center no-repeat;
+    background-size: cover;
     cursor: pointer;
   }
   
   label {
     display: inline-block;
-    width: 2.5rem; /* Adjust width as needed */
+    width: 2.5rem;
     text-align: center;
-    font-size: 0.75rem; /* Adjust font size as needed */
+    font-size: 0.75rem;
+}
+
+.selector {
+  align-items: center;
+  background: #555555;
+  border: 0.5px solid #333333;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Inter, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  height: 20px;
+  justify-content: center;
+  line-height: 24px;
+  overflow-wrap: break-word;
+  padding-left: 8px;
+  text-decoration: none;
+  margin-bottom: 2px;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
