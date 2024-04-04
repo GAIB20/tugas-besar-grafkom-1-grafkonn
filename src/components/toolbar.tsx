@@ -9,16 +9,11 @@ import DeleteIcon from "../assets/toolbar-icon/delete.png";
 import SaveIcon from "../assets/toolbar-icon/save.png";
 import LoadIcon from "../assets/toolbar-icon/load.png";
 
-interface ToolbarProps {
-  setCreateType: (createType: string) => void;
-}
-
-function Toolbar({ setCreateType }: ToolbarProps) {
-  const [activeButton, setActiveButton] = useState<string | null>("Square");
+function Toolbar() {
+  const [activeButton, setActiveButton] = useState<string>("Square");
 
   const handleClick = (buttonName: string) => {
     setActiveButton(buttonName);
-    setCreateType(buttonName.toLowerCase());
   };
 
   const buttonStyle = (buttonName: string) => {
@@ -27,27 +22,28 @@ function Toolbar({ setCreateType }: ToolbarProps) {
 
   return (
     <div className="bg-primaryDark w-10 h-full p-1 static flex flex-col items-center">
+      <input className="" type="text" id="creation-type" value={activeButton}/>
       <button
-        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Line")}`}
-        onClick={() => handleClick("Line")}
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("line")}`}
+        onClick={() => handleClick("line")}
       >
         <img src={LineIcon} alt="Line" className="w-4 h-auto" />
       </button>
       <button
-        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Square")}`}
-        onClick={() => handleClick("Square")}
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("square")}`}
+        onClick={() => handleClick("square")}
       >
         <img src={SquareIcon} alt="Square" className="w-4 h-auto" />
       </button>
       <button
-        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Rectangle")}`}
-        onClick={() => handleClick("Rectangle")}
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("rectangle")}`}
+        onClick={() => handleClick("rectangle")}
       >
         <img src={RectangleIcon} alt="Rectangle" className="w-6 h-auto" />
       </button>
       <button
-        className={`p-1 m-0.5 rounded-sm ${buttonStyle("Polygon")}`}
-        onClick={() => handleClick("Polygon")}
+        className={`p-1 m-0.5 rounded-sm ${buttonStyle("polygon")}`}
+        onClick={() => handleClick("polygon")}
       >
         <img src={PolygonIcon} alt="Polygon" className="w-6 h-auto" />
       </button>

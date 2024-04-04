@@ -15,7 +15,6 @@ export function createWebGL(
       }[]
     >
   >,
-  createType: string
 ) {
   const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
   if (!canvas) {
@@ -33,6 +32,8 @@ export function createWebGL(
   const selectionShapes = document.getElementById(
     "selectShape"
   ) as HTMLSelectElement;
+
+
 
   resizeCanvas(gl.canvas as HTMLCanvasElement);
 
@@ -113,17 +114,12 @@ export function createWebGL(
     selectionShapes,
     () => shapesArr,
     () => mouseDownType,
-    () => createType,
     () => selectedShapeIdx,
     () => shapesArr[selectedShapeIdx],
     () => drawScene(),
     () => draggedVertexIdxArr,
     () => changedColorVertexIdxArr
   );
-
-  colorPicker.focus();
-  colorPicker.value = "#FFCC00";
-  colorPicker.click();
 
   const drawScene = () => {
     // draw scene

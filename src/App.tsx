@@ -11,16 +11,15 @@ function App() {
       type?: "line" | "square" | "rectangle" | "polygon";
     }[]
   >([]);
-  const [activeButton, setActiveButton] = useState<string | null>(null);
 
   useEffect(() => {
-    createWebGL(setShapeTypeArr, activeButton || "square");
-  }, [activeButton, setShapeTypeArr]);
-  console.log(shapeTypeArr)
+    createWebGL(setShapeTypeArr);
+  }, []);
+  console.log(shapeTypeArr);
   return (
     <div className="flex h-screen">
       {/* Toolbar */}
-      <Toolbar setCreateType={setActiveButton}/>
+      <Toolbar />
 
       {/* Main Canvas */}
       <div className="w-full h-full relative">
@@ -31,7 +30,7 @@ function App() {
       </div>
 
       {/* Properties */}
-      <Sidebar shapeTypeArr={shapeTypeArr}/>
+      <Sidebar shapeTypeArr={shapeTypeArr} />
     </div>
   );
 }

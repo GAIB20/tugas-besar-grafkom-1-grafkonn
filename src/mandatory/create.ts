@@ -8,7 +8,6 @@ export function onCreateHandleMouseDown(
   selectionShapes: HTMLSelectElement,
   shapeBuffer: AbstractShape[],
   mouseDownType: "create" | "move" | string,
-  creationType: "line" | "square" | "rectangle" | "polygon" | string,
   setShapeTypeArr: React.Dispatch<
     React.SetStateAction<
       {
@@ -18,6 +17,10 @@ export function onCreateHandleMouseDown(
     >
   >
 ) {
+  const createTypeElmt = document.getElementById(
+    "creation-type"
+  ) as HTMLInputElement;
+  const creationType = createTypeElmt.value
   if (mouseDownType === "create") {
     const canvasRect = canvas.getBoundingClientRect();
 

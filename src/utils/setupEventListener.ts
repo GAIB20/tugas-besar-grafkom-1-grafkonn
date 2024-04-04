@@ -28,7 +28,6 @@ export function setupEventListener(
   // make it as a function so that it will always called on render, not just at the first render
   shapesArr: () => AbstractShape[],
   mouseDownType: () => string,
-  createType: () => string,
   selectedShapeIdx: () => number,
   shape: () => AbstractShape,
   drawScene: () => void,
@@ -44,7 +43,6 @@ export function setupEventListener(
         selectionShapes,
         shapesArr(),
         mouseDownType(),
-        createType(), 
         setShapeTypeArr
       );
       drawScene();
