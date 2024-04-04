@@ -22,7 +22,7 @@ function Toolbar() {
 
   return (
     <div className="bg-primaryDark w-10 h-full p-1 static flex flex-col items-center">
-      <input className="" type="text" id="creation-type" value={activeButton}/>
+      <input className="hidden" type="text" id="creation-type" value={activeButton}/>
       <button
         className={`p-1 m-0.5 rounded-sm ${buttonStyle("line")}`}
         onClick={() => handleClick("line")}
