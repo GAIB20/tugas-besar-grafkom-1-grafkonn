@@ -11,10 +11,11 @@ export function createWebGL(
     React.SetStateAction<
       {
         id: number;
-        type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+        type?: "line" | "square" | "rectangle" | "polygon";
       }[]
     >
-  >
+  >,
+  createType: string
 ) {
   const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
   if (!canvas) {
@@ -62,7 +63,6 @@ export function createWebGL(
 
   // event listeners to create shape
   let mouseDownType = "create";
-  const createType = "rectangle"; // TODO: modify when UI ready
   let selectedShapeIdx: number = 0;
 
   // event listeners to change options

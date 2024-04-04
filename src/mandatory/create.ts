@@ -8,12 +8,12 @@ export function onCreateHandleMouseDown(
   selectionShapes: HTMLSelectElement,
   shapeBuffer: AbstractShape[],
   mouseDownType: "create" | "move" | string,
-  creationType: "square" | "line" | string,
+  creationType: "line" | "square" | "rectangle" | "polygon" | string,
   setShapeTypeArr: React.Dispatch<
     React.SetStateAction<
       {
         id: number;
-        type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+        type?: "line" | "square" | "rectangle" | "polygon";
       }[]
     >
   >

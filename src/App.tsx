@@ -8,18 +8,19 @@ function App() {
   const [shapeTypeArr, setShapeTypeArr] = useState<
     {
       id: number;
-      type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+      type?: "line" | "square" | "rectangle" | "polygon";
     }[]
   >([]);
+  const [activeButton, setActiveButton] = useState<string | null>(null);
 
   useEffect(() => {
-    createWebGL(setShapeTypeArr);
-  }, []);
+    createWebGL(setShapeTypeArr, activeButton || "square");
+  }, [activeButton, setShapeTypeArr]);
   console.log(shapeTypeArr)
   return (
     <div className="flex h-screen">
       {/* Toolbar */}
-      <Toolbar/>
+      <Toolbar setCreateType={setActiveButton}/>
 
       {/* Main Canvas */}
       <div className="w-full h-full relative">

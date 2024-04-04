@@ -9,12 +9,16 @@ import DeleteIcon from "../assets/toolbar-icon/delete.png";
 import SaveIcon from "../assets/toolbar-icon/save.png";
 import LoadIcon from "../assets/toolbar-icon/load.png";
 
+interface ToolbarProps {
+  setCreateType: (createType: string) => void;
+}
 
-function Toolbar() {
-  const [activeButton, setActiveButton] = useState<string | null>(null);
+function Toolbar({ setCreateType }: ToolbarProps) {
+  const [activeButton, setActiveButton] = useState<string | null>("Square");
 
   const handleClick = (buttonName: string) => {
     setActiveButton(buttonName);
+    setCreateType(buttonName.toLowerCase());
   };
 
   const buttonStyle = (buttonName: string) => {

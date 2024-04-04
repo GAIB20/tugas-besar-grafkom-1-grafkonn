@@ -18,7 +18,7 @@ export function setupEventListener(
     React.SetStateAction<
       {
         id: number;
-        type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+        type?: "line" | "square" | "rectangle" | "polygon";
       }[]
     >
   >,
@@ -37,16 +37,18 @@ export function setupEventListener(
 ) {
   // Event listeners for creating new shape
   canvas.addEventListener("mousedown", (e: MouseEvent) => {
-    onCreateHandleMouseDown(
-      e,
-      canvas,
-      selectionShapes,
-      shapesArr(),
-      mouseDownType(),
-      createType(), 
-      setShapeTypeArr
-    );
-    drawScene();
+    if (mouseDownType() === "create") {
+      onCreateHandleMouseDown(
+        e,
+        canvas,
+        selectionShapes,
+        shapesArr(),
+        mouseDownType(),
+        createType(), 
+        setShapeTypeArr
+      );
+      drawScene();
+    }
   });
 
   // event listeners for translation
@@ -107,15 +109,17 @@ export function setupEventListener(
 
   // event listeners to change colors
   canvas.addEventListener("mousedown", (e: MouseEvent) => {
-    onChangeColorVertexHandleMouseDown(
-      e,
-      canvas,
-      selectedShapeIdx(),
-      shape(),
-      changedColorVertexIdxArr(),
-      mouseDownType(),
-      colorPicker,
-      drawScene
-    );
+    if (mouseDownType() === "changeColor") {
+      onChangeColorVertexHandleMouseDown(
+        e,
+        canvas,
+        selectedShapeIdx(),
+        shape(),
+        changedColorVertexIdxArr(),
+        mouseDownType(),
+        colorPicker,
+        drawScene
+      );
+    }
   });
 }

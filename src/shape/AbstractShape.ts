@@ -1,7 +1,7 @@
 export abstract class AbstractShape {
   public id: number;
   // for location purposes
-  public type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+  public type?: "line" | "square" | "rectangle" | "polygon";
   public locationArr: number[];
   public indexInBuffer: number;
   public bufferLocSize: number;
