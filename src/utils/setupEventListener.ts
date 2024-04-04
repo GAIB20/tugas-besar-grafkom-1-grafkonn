@@ -6,6 +6,8 @@ import {
   onMoveVertexHandleMouseUp,
 } from "../mandatory/moveVertex";
 import { handleResize } from "../mandatory/resize";
+import { handleResizeX } from "../mandatory/resizeX";
+import { handleResizeY } from "../mandatory/resizeY";
 import { handleRotate } from "../mandatory/rotate";
 import { handleTranslate } from "../mandatory/translate";
 import { AbstractShape } from "../shape/AbstractShape";
@@ -65,6 +67,16 @@ export function setupEventListener(
 
   setupSlider("#slider-resize", canvas.width, (e: Event) => {
     handleResize(e, shape())
+    drawScene();
+  });
+
+  setupSlider("#slider-resize-x", canvas.width, (e: Event) => {
+    handleResizeX(e, shape())
+    drawScene();
+  });
+
+  setupSlider("#slider-resize-y", canvas.width, (e: Event) => {
+    handleResizeY(e, shape())
     drawScene();
   });
 

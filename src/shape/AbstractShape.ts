@@ -17,6 +17,8 @@ export abstract class AbstractShape {
 
   // for resize purposes
   public scaleFactor: number;
+  public scaleFactorX: number;
+  public scaleFactorY: number;
 
   constructor(id: number) {
     this.id = id;
@@ -34,6 +36,8 @@ export abstract class AbstractShape {
     // must be initialized on every different shape
     this.color = []
     this.scaleFactor = 0;
+    this.scaleFactorX = 0;
+    this.scaleFactorY = 0;
   }
 
   abstract onCreate(

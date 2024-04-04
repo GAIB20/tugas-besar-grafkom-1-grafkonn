@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="flex h-screen">
       {/* Toolbar */}
-      <Toolbar />
+      <Toolbar/>
 
       {/* Main Canvas */}
       <div className="w-full h-full relative">
