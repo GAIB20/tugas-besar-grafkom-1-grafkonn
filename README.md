@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# 2D Web Based CAD (Computer-Aided Design)
+Program berbasis website ini dibuat untuk menyelesaikan Tugas Besar 1 IF3260 Grafika Komputer.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Deskripsi program
 
-Currently, two official plugins are available:
+Sebuah program CAD 2 dimensi telah dikembangkan sebagai bagian dari Tugas Besar 1 dalam mata kuliah IF3260 Grafika Komputer untuk tahun ajaran 2023/2024. Program ini diakses melalui sebuah website dan memungkinkan pengguna untuk membuat gambar menggunakan bentuk dasar seperti garis, persegi, persegi panjang, dan poligon. Selain itu, pengguna dapat mengubah posisi, warna, sudut, serta melakukan transformasi seperti translasi dan rotasi pada bentuk-bentuk tersebut. Model gambar yang telah dibuat dapat disimpan sebagai file dengan format .txt sehingga dapat diakses dan ditampilkan kembali di kemudian hari.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Menjalankan program
+### Requirement
+- Install browser yang men-support WEBGL
+- Install [Visual Studio Code](https://code.visualstudio.com\)
+- Pada VS Code, install ekstensi <strong>Live Share</strong>
+- pastikan memiliki nodejs dan typescript
 
-## Expanding the ESLint configuration
+### How to Run
+1. Ketik npm install
+2. Ketik npm run dev
+3. Website siap digunakan
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<a name="anggota-kelompok"></a>
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Anggota Kelompok
+| Nama                        | NIM      |
+| --------------------------- | -------- |
+| M. Rizky Syaban             | 13521119 |
+| Saddam Annais S.            | 13521119 |
+| Mohammad Rifqi Farhansyah   | 13521166 |
