@@ -10,8 +10,6 @@ export class Line extends AbstractShape {
         this.bufferLocSize = this.locationArr.length;
         this.type = "line";
         this.scaleFactor = 0;
-        this.scaleFactorX = 0;
-        this.scaleFactorY = 0;
         const v1 = [Math.random(), Math.random(), Math.random(), 1];
         const v2 = [Math.random(), Math.random(), Math.random(), 1];
         const v3 = [Math.random(), Math.random(), Math.random(), 1];
