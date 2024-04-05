@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "../styles/sidebar.css";
+import SaveIcon from "../assets/toolbar-icon/save.png";
+import LoadIcon from "../assets/toolbar-icon/load.png";
+import { AbstractShape } from "../shape/AbstractShape";
 
 interface SidebarProps {
   shapeTypeArr: {
     id: number;
     type?: "square" | "circle" | "line" | "rectangle" | "polygon";
   }[];
+  shapesArr: AbstractShape[];
 }
 
-function Sidebar({ shapeTypeArr }: SidebarProps) {
+function Sidebar({ shapeTypeArr  }: SidebarProps) {
   const [selectedShape, setSelectedShape] = useState<string>("");
 
   const handleShapeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -35,7 +39,7 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
   };
 
   return (
-    <div className="static bg-primaryDark text-white">
+    <div className="static bg-primaryDark text-white flex flex-col justify-between">
       <div className="p-2 text-center">
         <p className="text-sm">Choose Shape</p>
         <hr className="border-primaryCanvas border-[0.1px] opacity-25 mb-0.5" />
@@ -186,12 +190,24 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
             </div>
           </div>
         </div>
+        <div className="p-2 flex items-center">
+          <input
+            id="color-picker"
+            type="color"
+            className="opacity-0 w-0 h-0"
+          />
+        </div>
       </div>
-      <input
-        id="color-picker"
-        type="color"
-        className="opacity-0 w-0 h-0 ml-3"
-      />
+      <div className="flex flex-col justify-center p-2 gap-y-1 text-xs">
+        <button className="bg-textGrey hover:opacity-70 text-white py-0.5 px-4 border border-primaryCanvas flex items-center justify-center"  id="save-button">
+          <img src={SaveIcon} alt="Save Icon" className="w-auto h-3 mr-1.5" />
+          Save
+        </button>
+        <button className="bg-textGrey hover:opacity-70 text-white py-0.5 px-4 border border-primaryCanvas flex items-center justify-center"  id="load-button">
+          <img src={LoadIcon} alt="Load Icon" className="w-auto h-2.5 mr-1.5" />
+          Load
+        </button>
+      </div>
     </div>
   );
 }

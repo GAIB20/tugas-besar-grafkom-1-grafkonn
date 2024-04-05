@@ -5,9 +5,9 @@ import RectangleIcon from "../assets/toolbar-icon/rectangle.png";
 import PolygonIcon from "../assets/toolbar-icon/polygon.png";
 // import SelectIcon from "../assets/toolbar-icon/select.png";
 // import MoveIcon from "../assets/toolbar-icon/move.png";
-import DeleteIcon from "../assets/toolbar-icon/delete.png";
-import SaveIcon from "../assets/toolbar-icon/save.png";
-import LoadIcon from "../assets/toolbar-icon/load.png";
+// import DeleteIcon from "../assets/toolbar-icon/delete.png";
+// import SaveIcon from "../assets/toolbar-icon/save.png";
+// import LoadIcon from "../assets/toolbar-icon/load.png";
 
 function Toolbar() {
   const [activeButton, setActiveButton] = useState<string>("Square");
@@ -59,7 +59,7 @@ function Toolbar() {
       >
         <img src={MoveIcon} alt="Move" className="w-4 h-auto" />
       </button> */}
-      <button
+      {/* <button
         className={`p-1 m-0.5 rounded-sm ${buttonStyle("Delete")}`}
         onClick={() => handleClick("Delete")}
       >
@@ -76,7 +76,7 @@ function Toolbar() {
         onClick={() => handleClick("Load")}
       >
         <img src={LoadIcon} alt="Load" className="w-6 h-auto" />
-      </button>
+      </button> */}
     </div>
   );
 }

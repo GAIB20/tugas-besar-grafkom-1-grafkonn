@@ -3,6 +3,7 @@ import "./App.css";
 import { createWebGL } from "./webgl";
 import Toolbar from "./components/toolbar.tsx";
 import Sidebar from "./components/sidebar.tsx";
+import { AbstractShape } from "./shape/AbstractShape.ts";
 
 function App() {
   const [shapeTypeArr, setShapeTypeArr] = useState<
@@ -12,10 +13,15 @@ function App() {
     }[]
   >([]);
 
+  const [shapesArr, setShapesArr] = useState<AbstractShape[]>([]);
+
   useEffect(() => {
-    createWebGL(setShapeTypeArr);
+    createWebGL(setShapeTypeArr, (shapes) => {
+      setShapesArr(shapes);
+    });
   }, []);
   console.log(shapeTypeArr);
+  console.log(shapesArr)
   return (
     <div className="flex h-screen">
       {/* Toolbar */}
@@ -30,7 +36,7 @@ function App() {
       </div>
 
       {/* Properties */}
-      <Sidebar shapeTypeArr={shapeTypeArr} />
+      <Sidebar shapeTypeArr={shapeTypeArr} shapesArr={shapesArr} />
     </div>
   );
 }
