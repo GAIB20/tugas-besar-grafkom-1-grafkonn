@@ -162,7 +162,11 @@ export function createWebGL(
       gl.uniform2fv(translationUniform, translate);
 
       // draw the arrays
-      gl.drawArrays(gl.TRIANGLES, 0, shapesArr[i].locationArr.length);
+      if (shapesArr[i].type === "line") {
+        gl.drawArrays(gl.LINES, 0, shapesArr[i].locationArr.length);
+      } else {
+        gl.drawArrays(gl.TRIANGLES, 0, shapesArr[i].locationArr.length);
+      }
     }
   };
 }

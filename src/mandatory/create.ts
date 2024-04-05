@@ -1,6 +1,7 @@
 import { AbstractShape } from "../shape/AbstractShape";
 import { Square } from "../shape/Square";
 import { Rectangle } from "../shape/Rectangle";
+import { Line } from "../shape/Line";
 
 export function onCreateHandleMouseDown(
   event: MouseEvent,
@@ -35,6 +36,10 @@ export function onCreateHandleMouseDown(
       shapeBuffer.push(shape);
     } else if (creationType === "rectangle"){
       shape = new Rectangle(shapeBuffer.length);
+      shape.onCreate(mouseX, mouseY);
+      shapeBuffer.push(shape);
+    } else if (creationType === "line") {
+      shape = new Line(shapeBuffer.length);
       shape.onCreate(mouseX, mouseY);
       shapeBuffer.push(shape);
     }
