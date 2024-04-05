@@ -5,6 +5,8 @@ import { createProgram } from "./utils/program";
 import { resizeCanvas } from "./utils/resize-canvas";
 import { setupEventListener } from "./utils/setupEventListener";
 import { createAllShader } from "./utils/shader";
+import { Square } from "./shape/Square";
+import { Rectangle } from "./shape/Rectangle";
 
 export function createWebGL(
   setShapeTypeArr: React.Dispatch<
@@ -15,6 +17,7 @@ export function createWebGL(
       }[]
     >
   >,
+  shapesArrCallback: (shapesArr: AbstractShape[]) => void
 ) {
   const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
   if (!canvas) {
@@ -167,6 +170,85 @@ export function createWebGL(
       } else {
         gl.drawArrays(gl.TRIANGLES, 0, shapesArr[i].locationArr.length);
       }
+      shapesArrCallback(shapesArr);
     }
   };
+
+
+  // Attach event listeners
+  const saveButton = document.querySelector("#save-button");
+  saveButton?.addEventListener("click", () =>{
+    const data = shapesArr.map(shape => ({
+      type: shape.type,
+      locationArr: shape.locationArr,
+      translationArr: shape.translationArr,
+      rotation: shape.rotation,
+      color: shape.color,
+      scaleFactor: shape.scaleFactor,
+      scaleFactorX: shape.scaleFactorX,
+      scaleFactorY: shape.scaleFactorY
+    }));
+
+    const jsonData = JSON.stringify(data);
+    const blob = new Blob([jsonData], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'model.txt';
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  });
+
+  const loadButton = document.querySelector("#load-button");
+  loadButton?.addEventListener("click", () =>{
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.txt';
+    input.click();
+    input.onchange = () => {
+      const file = input.files![0];
+      const reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = () => {
+        const dataTotal = JSON.parse(reader.result as string);
+        let i = shapesArr.length;
+        dataTotal.forEach((data: AbstractShape) => {
+          // let shape: AbstractShape;
+          console.log(data);
+          if(data.type === "square"){
+            const square = new Square(i);
+            square.type = data.type;
+            square.locationArr = data.locationArr;
+            square.translationArr = data.translationArr;
+            square.rotation = data.rotation;
+            square.color = data.color;
+            square.scaleFactor = data.scaleFactor;
+            console.log("SQUARE");
+            console.log(square);
+            console.log("SQUARE");
+          } else if (data.type === "rectangle"){
+            const rectangle = new Rectangle(i);
+            rectangle.type = data.type;
+            rectangle.locationArr = data.locationArr;
+            rectangle.translationArr = data.translationArr;
+            rectangle.rotation = data.rotation;
+            rectangle.color = data.color;
+            rectangle.scaleFactorX = data.scaleFactorX;
+            rectangle.scaleFactorY = data.scaleFactorY;
+            console.log("RECTANGLE");
+            console.log(rectangle);
+            console.log("RECTANGLE");
+          }
+          i+=1;
+          shapesArr.push(data);
+        });
+        drawScene();
+      };
+    };
+  });
+
+  // Call drawScene initially
+  drawScene();
 }
