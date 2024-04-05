@@ -1,4 +1,3 @@
-// Rectangle.ts
 import { AbstractShape } from "./AbstractShape";
 
 export class Polygon extends AbstractShape {
@@ -12,9 +11,9 @@ export class Polygon extends AbstractShape {
         this.bufferLocSize = this.locationArr.length;
         this.type = "polygon";
         this.scaleFactor = 0;
-        const v1 = [Math.random(), Math.random(), Math.random(), 1];
-        const v2 = [Math.random(), Math.random(), Math.random(), 1];
-        const v3 = [Math.random(), Math.random(), Math.random(), 1];
+        const v1 = [0, 0, 0, 1];
+        const v2 = [0, 0, 0, 1];
+        const v3 = [0, 0, 0, 1];
         this.color = [
             ...v1,
             ...v2,
@@ -22,10 +21,31 @@ export class Polygon extends AbstractShape {
         ]
     }
 
-    convexHull() : number[][] {
+    onAddVertex(x: number, y: number): void {
+        console.log("add vertex", x, y);
+        const inputLoc = [...this.locationArr, x, y];
+        const convexHull = this.convexHull(inputLoc)
+        const data : number[] = []
+        for(let i=0;i<convexHull.length-2;i++){
+            data.push(convexHull[0][0],convexHull[0][1])
+            data.push(convexHull[i+1][0],convexHull[i+1][1])
+            data.push(convexHull[i+2][0],convexHull[i+2][1])
+        }
+        this.locationArr = data
+        this.bufferLocSize = this.locationArr.length
+        const newColor = []
+        for (let i = 0; i < this.locationArr.length; i ++) {
+            newColor.push(...[0, 0, 0, 1]);
+        }
+        console.log(newColor)
+        console.log(this.locationArr)
+        this.color = newColor;
+    }
+
+    convexHull(inputLoc: number[]) : number[][] {
         const points: number[][] = []
-        for(let i=0;i<this.locationArr.length;i+=2){
-            points.push([this.locationArr[i],this.locationArr[i+1]])
+        for(let i=0;i<inputLoc.length;i+=2){
+            points.push([inputLoc[i],inputLoc[i+1]])
         }
 
         const n = points.length;

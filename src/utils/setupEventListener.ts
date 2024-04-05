@@ -55,7 +55,8 @@ export function setupEventListener(
     if (mouseDownType() === "add-vertex") {
       onAddVertexMouseDown(
         e,
-        shape()
+        shape(),
+        canvas
       );
       drawScene();
     }
