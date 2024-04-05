@@ -14,13 +14,7 @@ interface SidebarProps {
 
 function Sidebar({ shapeTypeArr  }: SidebarProps) {
   const [selectedShape, setSelectedShape] = useState<string>("");
-  const [trigger, setTrigger] = useState<boolean>(false);
 
-  const handleShapeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    const selectedShapeType = selectedValue.split("-")[1] || "";
-    setSelectedShape(selectedShapeType);
-  };
 
   useEffect(() => {
     const shapeSelect = document.getElementById("selectShape") as HTMLSelectElement;
@@ -30,10 +24,6 @@ function Sidebar({ shapeTypeArr  }: SidebarProps) {
     setSelectedShape(selectedShapeType);
   }, [shapeTypeArr]);
 
-  const handleSelectShapeChange = () => {
-    console.log("triggered");
-    setTrigger(!trigger);
-  };
 
   const handleSliderChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -50,7 +40,7 @@ function Sidebar({ shapeTypeArr  }: SidebarProps) {
       <div className="p-2 text-center">
         <p className="text-sm">Choose Shape</p>
         <hr className="border-primaryCanvas border-[0.1px] opacity-25 mb-0.5" />
-        <select id="selectShape" className="w-full selector" onChange={()=>handleSelectShapeChange()}>
+        <select id="selectShape" className="w-full selector" >
           {shapeTypeArr
             .filter(
               (shape, index, self) =>
