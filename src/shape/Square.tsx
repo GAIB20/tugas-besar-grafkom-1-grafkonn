@@ -21,8 +21,6 @@ export class Square extends AbstractShape {
       ...v4,
       ...v1,
     ]
-      // 16	5
-      // 2	34
   }
   drawShape(): void {}
 }

@@ -2,6 +2,7 @@ import { AbstractShape } from "../shape/AbstractShape";
 import { Square } from "../shape/Square";
 import { Rectangle } from "../shape/Rectangle";
 import { Line } from "../shape/Line";
+import { Polygon } from "../shape/Polygon";
 
 export function onCreateHandleMouseDown(
   event: MouseEvent,
@@ -40,6 +41,10 @@ export function onCreateHandleMouseDown(
       shapeBuffer.push(shape);
     } else if (creationType === "line") {
       shape = new Line(shapeBuffer.length);
+      shape.onCreate(mouseX, mouseY);
+      shapeBuffer.push(shape);
+    } else if (creationType === "polygon") {
+      shape = new Polygon(shapeBuffer.length);
       shape.onCreate(mouseX, mouseY);
       shapeBuffer.push(shape);
     }

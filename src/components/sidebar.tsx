@@ -10,6 +10,7 @@ interface SidebarProps {
 
 function Sidebar({ shapeTypeArr }: SidebarProps) {
   const [selectedShape, setSelectedShape] = useState<string>("");
+  const [trigger, setTrigger] = useState<boolean>(false);
 
   useEffect(() => {
     const shapeSelect = document.getElementById("selectShape") as HTMLSelectElement;
@@ -18,6 +19,12 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
 
     setSelectedShape(selectedShapeType);
   }, [shapeTypeArr]);
+
+  const handleSelectShapeChange = () => {
+    console.log("triggered");
+    setTrigger(!trigger);
+  };
+
   const handleSliderChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     sliderId: string
@@ -33,7 +40,7 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
       <div className="p-2 text-center">
         <p className="text-sm">Choose Shape</p>
         <hr className="border-primaryCanvas border-[0.1px] opacity-25 mb-0.5" />
-        <select id="selectShape" className="w-full selector">
+        <select id="selectShape" className="w-full selector" onChange={()=>handleSelectShapeChange()}>
           {shapeTypeArr
             .filter(
               (shape, index, self) =>
@@ -106,8 +113,10 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
           <option value="create">Create</option>
           <option value="move">Move vertex</option>
           <option value="changeColor">Change Color</option>
+          <option value="add-vertex">Add Vertex</option>
+          <option value="remove-vertex">Remove Vertex</option>
         </select>
-        <div className={`p-2 ${selectedShape !== "square" ? "hidden" : ""}`}>
+        <div className={`p-2 ${(selectedShape == "square" || selectedShape == "line") ? "block" : "hidden"}`}>
           <p className="text-sm">Resize</p>
           <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
           <div className="flex flex-col gap-y-2">
@@ -130,7 +139,7 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
             </div>
           </div>
         </div>
-        <div className={`p-2 ${selectedShape !== "rectangle" ? "hidden" : ""}`}>
+        <div className={`p-2 ${selectedShape === "rectangle" ? "block" : "hidden"}`}>
           <p className="text-sm">ResizeX</p>
           <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
           <div className="flex flex-col gap-y-2">
@@ -153,7 +162,7 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
             </div>
           </div>
         </div>
-        <div className={`p-2 ${selectedShape !== "rectangle" ? "hidden" : ""}`}>
+        <div className={`p-2 ${selectedShape === "rectangle" ? "block" : "hidden"}`}>
           <p className="text-sm">ResizeY</p>
           <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
           <div className="flex flex-col gap-y-2">

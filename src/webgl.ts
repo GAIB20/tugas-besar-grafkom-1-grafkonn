@@ -33,8 +33,6 @@ export function createWebGL(
     "selectShape"
   ) as HTMLSelectElement;
 
-
-
   resizeCanvas(gl.canvas as HTMLCanvasElement);
 
   // create the shader and link the program
@@ -54,9 +52,7 @@ export function createWebGL(
   const translationUniform = gl.getUniformLocation(program, "u_translation");
   const rotationUniform = gl.getUniformLocation(program, "u_rotation");
 
-  // create position and color buffer
-  const positionBuffer = gl.createBuffer();
-  const colorBuffer = gl.createBuffer();
+
 
   const shapesArr: AbstractShape[] = [];
   const draggedVertexIdxArr: number[] = [];
@@ -137,6 +133,10 @@ export function createWebGL(
     gl.uniform2f(resolutionUniform, gl.canvas.width, gl.canvas.height);
 
     for (let i = 0; i < shapesArr.length; i++) {
+      // create position and color buffer
+      const positionBuffer = gl.createBuffer();
+      const colorBuffer = gl.createBuffer();
+
       // set the position buffer
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       gl.bufferData(

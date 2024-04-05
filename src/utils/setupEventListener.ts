@@ -1,3 +1,4 @@
+import { onAddVertexMouseDown } from "../mandatory/addVertex";
 import { onChangeColorVertexHandleMouseDown } from "../mandatory/changeColor";
 import { onCreateHandleMouseDown } from "../mandatory/create";
 import {
@@ -5,6 +6,7 @@ import {
   onMoveVertexHandleMouseMove,
   onMoveVertexHandleMouseUp,
 } from "../mandatory/moveVertex";
+import { onRemoveVertexMouseDown } from "../mandatory/removeVertex";
 import { handleResize } from "../mandatory/resize";
 import { handleResizeX } from "../mandatory/resizeX";
 import { handleResizeY } from "../mandatory/resizeY";
@@ -44,6 +46,26 @@ export function setupEventListener(
         shapesArr(),
         mouseDownType(),
         setShapeTypeArr
+      );
+      drawScene();
+    }
+  });
+
+  canvas.addEventListener("mousedown", (e: MouseEvent) => {
+    if (mouseDownType() === "add-vertex") {
+      onAddVertexMouseDown(
+        e,
+        shape()
+      );
+      drawScene();
+    }
+  });
+
+  canvas.addEventListener("mousedown", (e: MouseEvent) => {
+    if (mouseDownType() === "remove-vertex") {
+      onRemoveVertexMouseDown(
+        e,
+        shape()
       );
       drawScene();
     }
