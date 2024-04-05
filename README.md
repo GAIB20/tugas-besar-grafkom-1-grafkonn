@@ -23,5 +23,5 @@ Sebuah program CAD 2 dimensi telah dikembangkan sebagai bagian dari Tugas Besar 
 | Nama                        | NIM      |
 | --------------------------- | -------- |
 | M. Rizky Syaban             | 13521119 |
-| Saddam Annais S.            | 13521119 |
+| Saddam Annais S.            | 13521121 |
 | Mohammad Rifqi Farhansyah   | 13521166 |
