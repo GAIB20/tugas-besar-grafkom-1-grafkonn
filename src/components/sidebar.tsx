@@ -11,6 +11,12 @@ interface SidebarProps {
 function Sidebar({ shapeTypeArr }: SidebarProps) {
   const [selectedShape, setSelectedShape] = useState<string>("");
 
+  const handleShapeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    const selectedShapeType = selectedValue.split("-")[1] || "";
+    setSelectedShape(selectedShapeType);
+  };
+
   useEffect(() => {
     const shapeSelect = document.getElementById("selectShape") as HTMLSelectElement;
     const selectedShapeId = shapeSelect.value.split("-")[0];
@@ -33,7 +39,11 @@ function Sidebar({ shapeTypeArr }: SidebarProps) {
       <div className="p-2 text-center">
         <p className="text-sm">Choose Shape</p>
         <hr className="border-primaryCanvas border-[0.1px] opacity-25 mb-0.5" />
-        <select id="selectShape" className="w-full selector">
+        <select
+          id="selectShape"
+          className="w-full selector"
+          onChange={handleShapeChange}
+        >
           {shapeTypeArr
             .filter(
               (shape, index, self) =>
