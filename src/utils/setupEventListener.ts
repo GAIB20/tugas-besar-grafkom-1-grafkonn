@@ -10,6 +10,7 @@ import { onRemoveVertexMouseDown } from "../mandatory/removeVertex";
 import { handleResize } from "../mandatory/resize";
 import { handleResizeX } from "../mandatory/resizeX";
 import { handleResizeY } from "../mandatory/resizeY";
+import { handleResizeLine } from "../mandatory/resizeLine";
 import { handleRotate } from "../mandatory/rotate";
 import { handleTranslate } from "../mandatory/translate";
 import { AbstractShape } from "../shape/AbstractShape";
@@ -100,6 +101,11 @@ export function setupEventListener(
 
   setupSlider("#slider-resize-y", canvas.width, (e: Event) => {
     handleResizeY(e, shape())
+    drawScene();
+  });
+
+  setupSlider("#slider-resize-line", canvas.width, (e: Event) => {
+    handleResizeLine(e, shape())
     drawScene();
   });
 

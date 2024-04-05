@@ -7,7 +7,7 @@ import { AbstractShape } from "../shape/AbstractShape";
 interface SidebarProps {
   shapeTypeArr: {
     id: number;
-    type?: "square" | "circle" | "line" | "rectangle" | "polygon";
+    type?:  "line" | "square" | "rectangle" | "polygon";
   }[];
   shapesArr: AbstractShape[];
 }
@@ -116,7 +116,7 @@ function Sidebar({ shapeTypeArr  }: SidebarProps) {
           <option value="add-vertex">Add Vertex</option>
           <option value="remove-vertex">Remove Vertex</option>
         </select>
-        <div className={`p-2 ${(selectedShape == "square" || selectedShape == "line") ? "block" : "hidden"}`}>
+        <div className={`p-2 ${(selectedShape === "square") ? "block" : "hidden"}`}>
           <p className="text-sm">Resize</p>
           <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
           <div className="flex flex-col gap-y-2">
@@ -133,6 +133,29 @@ function Sidebar({ shapeTypeArr  }: SidebarProps) {
               />
               <div className="bg-black rounded-md w-10 px-2 py-1 ml-2 text-white text-xs">
                 <output id="sliderValResize" style={{ display: "block" }}>
+                  0
+                </output>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={`p-2 ${(selectedShape === "line") ? "block" : "hidden"}`}>
+          <p className="text-sm">Resize</p>
+          <hr className="border-primaryCanvas border-[0.1px] opacity-25" />
+          <div className="flex flex-col gap-y-2">
+            <div className="flex items-center mt-2">
+              <span className="text-xs pr-2  w-12 text-left">factor</span>
+              <input
+                type="range"
+                id="slider-resize-line"
+                min="0"
+                max="100"
+                defaultValue="1"
+                className="slider"
+                onChange={(event) => handleSliderChange(event, "ResizeLine")}
+              />
+              <div className="bg-black rounded-md w-10 px-2 py-1 ml-2 text-white text-xs">
+                <output id="sliderValResizeLine" style={{ display: "block" }}>
                   0
                 </output>
               </div>
